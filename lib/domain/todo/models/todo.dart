@@ -13,5 +13,5 @@ class Todo with _$Todo {
 
   factory Todo.fromJson(Map<String, dynamic> json) => _$TodoFromJson(json);
 
-  static String docPath(String uid) => 'todos/$uid';
+  static String docPath(String id) => 'todos/$id';
 }

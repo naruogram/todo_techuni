@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:todo_techuni/presentation/widgets/text_field_dialig.dart';
 import 'package:todo_techuni/use_case/todo/notifier/todo_notifier.dart';
 
 class TodoListPage extends HookConsumerWidget {
@@ -24,6 +25,17 @@ class TodoListPage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tech.Uni'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(
+              Icons.add,
+            ),
+            onPressed: () async {
+              final String value = await showTextFieldDialog(context: context);
+              await notifier.addTodo(description: value);
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Column(

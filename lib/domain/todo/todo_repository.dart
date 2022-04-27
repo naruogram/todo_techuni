@@ -16,9 +16,8 @@ class TodoRepository {
   // Todoの追加
   Future<Result<void>> addTodo({required Todo data}) async {
     try {
-      final uid = _ref.read(authServiceProvider).currentUid;
       await _db
-          .doc(Todo.docPath(uid))
+          .doc(Todo.docPath(data.id))
           .withConverter(
             fromFirestore: (doc, _) => Todo.fromJson(doc.data()!),
             toFirestore: (Todo object, _) => object.toJson(),

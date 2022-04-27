@@ -8,6 +8,8 @@ import 'package:todo_techuni/presentation/pages/todo_list_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  //初回のみ呼び出される
+  AuthService().signIn();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -17,22 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: JudgePage(),
+      home: TodoListPage(),
     );
-  }
-}
-
-//強引に書きました
-class JudgePage extends ConsumerWidget {
-  const JudgePage({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final auth = ref.watch(authServiceProvider);
-    if (auth.currentUid.isEmpty) {
-      auth.signIn();
-      return const TodoListPage();
-    } else {
-      return const TodoListPage();
-    }
   }
 }
