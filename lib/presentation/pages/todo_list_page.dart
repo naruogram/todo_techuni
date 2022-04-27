@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:todo_techuni/presentation/widgets/text_field_dialig.dart';
+import 'package:todo_techuni/presentation/widgets/dialog/confirm_dialog.dart';
+import 'package:todo_techuni/presentation/widgets/dialog/text_field_dialig.dart';
 import 'package:todo_techuni/use_case/todo/notifier/todo_notifier.dart';
 
 class TodoListPage extends HookConsumerWidget {
@@ -22,6 +23,7 @@ class TodoListPage extends HookConsumerWidget {
       },
       const [],
     );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tech.Uni'),
@@ -43,15 +45,25 @@ class TodoListPage extends HookConsumerWidget {
             Expanded(
               child: ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    child: Padding(
-                      child: Text(
-                        state.todoList[index].description,
-                        style: const TextStyle(fontSize: 22.0),
-                      ),
-                      padding: const EdgeInsets.all(20.0),
-                    ),
-                  );
+                  return GestureDetector(
+                      onLongPress: () async {
+                        final bool isDeleted =
+                            await showConfirmDialog(context: context);
+                        isDeleted == true
+                            ? await notifier.deleteTodo(
+                                data: state.todoList[index],
+                              )
+                            : null;
+                      },
+                      child: Card(
+                        child: Padding(
+                          child: Text(
+                            state.todoList[index].description,
+                            style: const TextStyle(fontSize: 22.0),
+                          ),
+                          padding: const EdgeInsets.all(20.0),
+                        ),
+                      ));
                 },
                 itemCount: state.todoList.length,
               ),

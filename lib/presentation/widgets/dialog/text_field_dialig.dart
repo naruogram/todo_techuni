@@ -5,12 +5,12 @@ Future<String?> showTextFieldDialog<String>({
 }) {
   return showDialog<String?>(
     context: context,
-    builder: (context) => BasicAlertDialog(),
+    builder: (context) => const BasicAlertDialog(),
   );
 }
 
 class BasicAlertDialog extends StatelessWidget {
-  BasicAlertDialog({Key? key}) : super(key: key);
+  const BasicAlertDialog({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final TextEditingController textController = TextEditingController();

@@ -43,4 +43,13 @@ class TodoRepository {
     }
     return Result.value(list);
   }
+
+  Future<Result<void>> deleteTodo({required Todo data}) async {
+    try {
+      await _db.doc(Todo.docPath(data.id)).delete();
+      return Result.value(null);
+    } on Exception catch (e) {
+      return Result.error(e);
+    }
+  }
 }
