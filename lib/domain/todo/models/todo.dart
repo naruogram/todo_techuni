@@ -7,7 +7,6 @@ class Todo with _$Todo {
   const Todo._();
   const factory Todo({
     @Default('') String description,
-    @Default('') String uid,
     @Default('') String id,
   }) = _Todo;
 

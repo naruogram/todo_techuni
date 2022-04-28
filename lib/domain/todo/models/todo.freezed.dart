@@ -21,7 +21,6 @@ Todo _$TodoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Todo {
   String get description => throw _privateConstructorUsedError;
-  String get uid => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -33,7 +32,7 @@ mixin _$Todo {
 abstract class $TodoCopyWith<$Res> {
   factory $TodoCopyWith(Todo value, $Res Function(Todo) then) =
       _$TodoCopyWithImpl<$Res>;
-  $Res call({String description, String uid, String id});
+  $Res call({String description, String id});
 }
 
 /// @nodoc
@@ -47,17 +46,12 @@ class _$TodoCopyWithImpl<$Res> implements $TodoCopyWith<$Res> {
   @override
   $Res call({
     Object? description = freezed,
-    Object? uid = freezed,
     Object? id = freezed,
   }) {
     return _then(_value.copyWith(
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      uid: uid == freezed
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
               as String,
       id: id == freezed
           ? _value.id
@@ -72,7 +66,7 @@ abstract class _$TodoCopyWith<$Res> implements $TodoCopyWith<$Res> {
   factory _$TodoCopyWith(_Todo value, $Res Function(_Todo) then) =
       __$TodoCopyWithImpl<$Res>;
   @override
-  $Res call({String description, String uid, String id});
+  $Res call({String description, String id});
 }
 
 /// @nodoc
@@ -87,17 +81,12 @@ class __$TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res>
   @override
   $Res call({
     Object? description = freezed,
-    Object? uid = freezed,
     Object? id = freezed,
   }) {
     return _then(_Todo(
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      uid: uid == freezed
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
               as String,
       id: id == freezed
           ? _value.id
@@ -110,8 +99,7 @@ class __$TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Todo extends _Todo {
-  const _$_Todo({this.description = '', this.uid = '', this.id = ''})
-      : super._();
+  const _$_Todo({this.description = '', this.id = ''}) : super._();
 
   factory _$_Todo.fromJson(Map<String, dynamic> json) => _$$_TodoFromJson(json);
 
@@ -120,14 +108,11 @@ class _$_Todo extends _Todo {
   final String description;
   @override
   @JsonKey()
-  final String uid;
-  @override
-  @JsonKey()
   final String id;
 
   @override
   String toString() {
-    return 'Todo(description: $description, uid: $uid, id: $id)';
+    return 'Todo(description: $description, id: $id)';
   }
 
   @override
@@ -137,7 +122,6 @@ class _$_Todo extends _Todo {
             other is _Todo &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.uid, uid) &&
             const DeepCollectionEquality().equals(other.id, id));
   }
 
@@ -146,7 +130,6 @@ class _$_Todo extends _Todo {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(uid),
       const DeepCollectionEquality().hash(id));
 
   @JsonKey(ignore: true)
@@ -161,16 +144,13 @@ class _$_Todo extends _Todo {
 }
 
 abstract class _Todo extends Todo {
-  const factory _Todo(
-      {final String description, final String uid, final String id}) = _$_Todo;
+  const factory _Todo({final String description, final String id}) = _$_Todo;
   const _Todo._() : super._();
 
   factory _Todo.fromJson(Map<String, dynamic> json) = _$_Todo.fromJson;
 
   @override
   String get description => throw _privateConstructorUsedError;
-  @override
-  String get uid => throw _privateConstructorUsedError;
   @override
   String get id => throw _privateConstructorUsedError;
   @override

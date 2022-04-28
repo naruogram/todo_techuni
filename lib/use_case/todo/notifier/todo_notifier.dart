@@ -1,7 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:todo_techuni/domain/auth/auth_service.dart';
 import 'package:todo_techuni/domain/todo/models/todo.dart';
-import 'package:todo_techuni/domain/todo/todo_repository.dart';
 import 'package:todo_techuni/use_case/todo/state/todo_list_state.dart';
 import 'package:uuid/uuid.dart';
 
@@ -22,43 +20,17 @@ class TodoListNotifier extends StateNotifier<TodoListState> {
   }
 
   Future<void> addTodo({required String description}) async {
-    final authState = _ref.read(authServiceProvider);
-    try {
-      final todo = Todo(
-        uid: authState.currentUid,
-        description: description,
-        id: const Uuid().v1(),
-      );
+    final todo = Todo(
+      description: description,
+      id: const Uuid().v1(),
+    );
 
-      state = state.copyWith(
-        todoList: [...state.todoList, todo],
-      );
-      //ここからは上級者向けなので無視してもOK
-      final result =
-          await _ref.read(todoRepositoryProvider).addTodo(data: todo);
-      if (result.isError) {}
-    } on Exception catch (e) {
-      print(e);
-      return;
-    }
-  }
-
-  Future<void> getTodoList() async {
-    final result = await _ref.read(todoRepositoryProvider).getTodoList();
-
-    if (result.isError) {
-      return;
-    }
-    state = state.copyWith(todoList: result.asValue!.value);
+    state = state.copyWith(
+      todoList: [...state.todoList, todo],
+    );
   }
 
   Future<void> deleteTodo({required Todo data}) async {
-    final result =
-        await _ref.read(todoRepositoryProvider).deleteTodo(data: data);
-
-    if (result.isError) {
-      return;
-    }
     state = state.copyWith(
         todoList: state.todoList.where((todo) => todo.id != data.id).toList());
   }
