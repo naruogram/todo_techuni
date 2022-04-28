@@ -14,7 +14,7 @@ class TodoRepository {
   final _db = FirebaseFirestore.instance;
 
   // Todoの追加
-  Future<Result<void>> addTodo({required Todo data}) async {
+  Future<void> addTodo({required Todo data}) async {
     try {
       await _db
           .doc(Todo.docPath(data.id))
@@ -23,33 +23,31 @@ class TodoRepository {
             toFirestore: (Todo object, _) => object.toJson(),
           )
           .set(data, SetOptions(merge: true));
-      return Result.value(null);
     } on Exception catch (e) {
-      return Result.error(e);
+      return;
     }
   }
 
   //Todo一覧取得
-  Future<Result<List<Todo>>> getTodoList() async {
+  Future<List<Todo>> getTodoList() async {
     final doc = _db.collection('todos');
     final snapshots = await doc.get();
 
     if (snapshots.docs.isEmpty) {
-      return Result.error('todo data not exists');
+      return [];
     }
     final list = <Todo>[];
     for (var i = 0; i < snapshots.docs.length; i++) {
       list.add(Todo.fromJson(snapshots.docs[i].data()));
     }
-    return Result.value(list);
+    return list;
   }
 
-  Future<Result<void>> deleteTodo({required Todo data}) async {
+  Future<void> deleteTodo({required Todo data}) async {
     try {
       await _db.doc(Todo.docPath(data.id)).delete();
-      return Result.value(null);
     } on Exception catch (e) {
-      return Result.error(e);
+      return;
     }
   }
 }

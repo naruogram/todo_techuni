@@ -33,10 +33,6 @@ class TodoListNotifier extends StateNotifier<TodoListState> {
       state = state.copyWith(
         todoList: [...state.todoList, todo],
       );
-      //ここからは上級者向けなので無視してもOK
-      final result =
-          await _ref.read(todoRepositoryProvider).addTodo(data: todo);
-      if (result.isError) {}
     } on Exception catch (e) {
       print(e);
       return;
@@ -44,21 +40,12 @@ class TodoListNotifier extends StateNotifier<TodoListState> {
   }
 
   Future<void> getTodoList() async {
-    final result = await _ref.read(todoRepositoryProvider).getTodoList();
-
-    if (result.isError) {
-      return;
-    }
-    state = state.copyWith(todoList: result.asValue!.value);
+    final todoList = await _ref.read(todoRepositoryProvider).getTodoList();
+    state = state.copyWith(todoList: todoList);
   }
 
   Future<void> deleteTodo({required Todo data}) async {
-    final result =
-        await _ref.read(todoRepositoryProvider).deleteTodo(data: data);
-
-    if (result.isError) {
-      return;
-    }
+    await _ref.read(todoRepositoryProvider).deleteTodo(data: data);
     state = state.copyWith(
         todoList: state.todoList.where((todo) => todo.id != data.id).toList());
   }
