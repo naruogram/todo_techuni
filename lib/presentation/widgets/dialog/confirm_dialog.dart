@@ -10,7 +10,7 @@ Future<bool?> showConfirmDialog<bool>({
   );
 }
 
-class ConfirmDialog extends HookWidget {
+class ConfirmDialog extends StatelessWidget {
   const ConfirmDialog({
     Key? key,
   }) : super(key: key);
