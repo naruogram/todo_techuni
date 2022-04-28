@@ -14,6 +14,7 @@ class TodoListPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(todoNotifierProvider);
     final notifier = ref.read(todoNotifierProvider.notifier);
+    //最初に呼び出される
     useEffect(
       () {
         WidgetsBinding.instance!.addPostFrameCallback((_) async {

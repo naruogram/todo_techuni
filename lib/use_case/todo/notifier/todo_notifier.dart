@@ -30,11 +30,12 @@ class TodoListNotifier extends StateNotifier<TodoListState> {
         id: const Uuid().v1(),
       );
 
-      final result =
-          await _ref.read(todoRepositoryProvider).addTodo(data: todo);
       state = state.copyWith(
         todoList: [...state.todoList, todo],
       );
+      //ここからは上級者向けなので無視してもOK
+      final result =
+          await _ref.read(todoRepositoryProvider).addTodo(data: todo);
       if (result.isError) {}
     } on Exception catch (e) {
       print(e);
